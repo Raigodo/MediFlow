@@ -16,14 +16,13 @@ public static class DependencyInjection
     public static WebApplication UseDummyModule(this WebApplication app)
     {
         //map routes
-        app.MapGroup("/api/v1/dummy")
-            .Also(g =>
-            {
-                g.MediateGet<Test1Request>("/test1");
-                g.MediateGet<Test2Request>("/test2");
-            })
+        var groupBuilder = app.MapGroup("/api/v1/dummy")
             .WithTags("Dummy Routes")
             .RequireAuthorization();
+
+        groupBuilder.MediateGet<Test1Request>("/test1");
+        groupBuilder.MediateGet<Test2Request>("/test2");
+            
 
         return app;
     }

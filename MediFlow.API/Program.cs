@@ -1,5 +1,3 @@
-
-
 using MediFlow.API.DependencyInjection;
 using MediFlow.API.Modules.Auth;
 using MediFlow.API.Modules.Dummy;

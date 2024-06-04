@@ -7,6 +7,6 @@ public class Test1RequestHandler : IRequestHandler<Test1Request, IResult>
 {
     public ValueTask<IResult> Handle(Test1Request request, CancellationToken cancellationToken)
     {
-        return Results.Ok($"hello {request.user.Identity!.Name}, data got: {request.someData}").ToValueTask();
+        return new(Results.Ok($"hello {request.user.Identity!.Name}, data got: {request.someData}"));
     }
 }
