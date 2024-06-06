@@ -1,6 +1,6 @@
 using MediFlow.API.DependencyInjection;
 using MediFlow.API.Modules.Auth;
-using MediFlow.API.Modules.Dummy;
+using MediFlow.API.Modules.Journal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +31,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseAuthModule();
-app.UseDummyModule();
+app.UseJournalModule();
+
 
 app.Run();
