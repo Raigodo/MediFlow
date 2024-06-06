@@ -34,4 +34,9 @@ public class Result<T>
 
     public static Result<T> Success(T value) => new(value, Error.None, true);
     public static Result<T> Failure(Error error) => new(default, error, false);
+
+    public R Match<R>(
+            Func<T, R> success,
+            Func<Error, R> failure) =>
+        IsSuccess ? success(Value) : failure(Error);
 }

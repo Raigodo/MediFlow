@@ -8,6 +8,7 @@ public class CreateNoteRequestHandler : IRequestHandler<CreateNoteRequest, Resul
 {
     public async ValueTask<Result<Note>> Handle(CreateNoteRequest request, CancellationToken cancellationToken)
     {
+
         return Result<Note>.Success(null);
     }
 }

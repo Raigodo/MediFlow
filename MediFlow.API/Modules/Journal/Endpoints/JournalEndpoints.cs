@@ -11,8 +11,18 @@ public static class JournalEndpoints
         string personId, string noteContent, ClaimsPrincipal currentUser,
         IMediator mediator, CancellationToken cancellationToken)
     {
+
         var result = await mediator.Send(new CreateNoteRequest(personId, noteContent, currentUser.Identity!.Name!), cancellationToken);
-        return Results.Ok(result);
+        return result.Match(
+            note => Results.Ok(note),
+            error =>
+            {
+                switch (error)
+                {
+                    default:
+                        return Results.Problem();
+                }
+            });
     }
 
     public static async Task<IResult> DeleteJournalNote()
