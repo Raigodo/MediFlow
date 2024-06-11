@@ -4,4 +4,4 @@ using MediFlow.API.Shared.Util.Result;
 
 namespace MediFlow.API.Modules.Journal.UseCases.CreateNote;
 
-public record CreateNoteRequest(string TargetPersonId, string noteContent, string creatorId) : IRequest<Result<Note>>;
+public record CreateNoteRequest(string TargetPersonId, string noteContent, string creatorId) : IRequest<ErrorOr<Note>>;

@@ -4,4 +4,4 @@ using MediFlow.API.Shared.Util.Result;
 
 namespace MediFlow.API.Modules.Journal.UseCases.GetNotes;
 
-public record GetNotesQuery(string personId) : IQuery<Result<IEnumerable<Note>>>;
+public record GetNotesQuery(string personId) : IQuery<ErrorOr<IEnumerable<Note>>>;

@@ -6,9 +6,9 @@ using MediFlow.API.Shared.Util.Result;
 namespace MediFlow.API.Modules.Journal.UseCases.CreateNote;
 
 public class CreateNoteRequestHandler(
-    JournalDbContext dbCtx) : IRequestHandler<CreateNoteRequest, Result<Note>>
+    JournalDbContext dbCtx) : IRequestHandler<CreateNoteRequest, ErrorOr<Note>>
 {
-    public async ValueTask<Result<Note>> Handle(CreateNoteRequest request, CancellationToken cancellationToken)
+    public async ValueTask<ErrorOr<Note>> Handle(CreateNoteRequest request, CancellationToken cancellationToken)
     {
         var newNote = new Note()
         {
