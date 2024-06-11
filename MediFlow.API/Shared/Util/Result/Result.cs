@@ -39,4 +39,7 @@ public class Result<T>
             Func<T, R> success,
             Func<Error, R> failure) =>
         IsSuccess ? success(Value) : failure(Error);
+
+    public static implicit operator Result<T>(T value) => Result<T>.Success(value);
+    public static implicit operator Result<T>(Error error) => Result<T>.Failure(error);
 }

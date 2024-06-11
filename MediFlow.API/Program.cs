@@ -8,6 +8,7 @@ builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 builder.Services.AddAuthModule();
+builder.Services.AddJournalModule();
 
 builder.Services.AddMediator(options =>
 {

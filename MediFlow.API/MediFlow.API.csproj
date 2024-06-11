@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Journal\Domain\Value\" />
     <Folder Include="Modules\Journal\UseCases\EditNote\" />
     <Folder Include="Modules\Journal\UseCases\DeleteNote\" />
   </ItemGroup>

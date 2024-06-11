@@ -1,5 +1,6 @@
 ﻿using Mediator;
 using MediFlow.API.Modules.Journal.UseCases.CreateNote;
+using MediFlow.API.Modules.Journal.UseCases.CreatePerson;
 using MediFlow.API.Modules.Journal.UseCases.GetNotes;
 using System.Security.Claims;
 
@@ -17,12 +18,13 @@ public static class JournalEndpoints
             note => Results.Ok(note),
             error =>
             {
-                switch (error)
-                {
-                    default:
-                        return Results.Problem();
-                }
+                return Results.Problem();
             });
+    }
+
+    public static async Task<IResult> CreatePerson(string personId, string Name, IMediator mediator)
+    {
+        return Results.Ok(await mediator.Send(new CreatePersonRequest(personId, Name)));
     }
 
     public static async Task<IResult> DeleteJournalNote()
@@ -39,7 +41,7 @@ public static class JournalEndpoints
         string personId, ClaimsPrincipal currentUser,
         IMediator mediator, CancellationToken cancellationToken)
     {
-        var notes = await mediator.Send(new GetNotesQuery(personId), cancellationToken);
-        return Results.Ok(notes);
+        var result = await mediator.Send(new GetNotesQuery(personId), cancellationToken);
+        return result.Match(notes => Results.Ok(notes), err => Results.BadRequest(err));
     }
 }

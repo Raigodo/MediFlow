@@ -14,7 +14,7 @@ public static class DependencyInjection
 
         services.AddDbContext<AuthDbContext>(dbOptions =>
         {
-            dbOptions.UseSqlite("DataSource=app.db");
+            dbOptions.UseSqlite("DataSource=auth.db");
         });
 
         services.AddIdentityCore<IdentityUser>(opt =>

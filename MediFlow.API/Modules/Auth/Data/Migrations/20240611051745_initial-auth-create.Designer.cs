@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MediFlow.API.Features.Auth.Data.Migrations
+namespace MediFlow.API.Modules.Auth.Data.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20240528065732_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240611051745_initial-auth-create")]
+    partial class initialauthcreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

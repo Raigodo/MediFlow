@@ -1,25 +1,29 @@
-﻿using MediFlow.API.Modules.Journal.Endpoints;
+﻿using MediFlow.API.Modules.Journal.Data;
+using MediFlow.API.Modules.Journal.Endpoints;
+using Microsoft.EntityFrameworkCore;
 
 namespace MediFlow.API.Modules.Journal;
 
 public static class DependencyInjection
 {
-    public static WebApplicationBuilder AddJournalModule(this WebApplicationBuilder builder)
+    public static IServiceCollection AddJournalModule(this IServiceCollection services)
     {
-        //add services and dependencies
-        //builder.Services.AddSingleton<JournalDbContext>();
-        return builder;
+        services.AddDbContext<JournalDbContext>(options =>
+        {
+            options.UseSqlite("DataSource=journal.db");
+        });
+        return services;
     }
 
     public static WebApplication UseJournalModule(this WebApplication app)
     {
-        //app.MediateGet...
         var groupBuilder = app.MapGroup("/journal/")
             .WithTags("Journal")
             .RequireAuthorization();
 
-        groupBuilder.MapPost("person{personId}/notes", JournalEndpoints.CreateJournalNote);
-        groupBuilder.MapGet("person{personId}/notes", JournalEndpoints.QueryJournalNotes);
+        groupBuilder.MapPost("persons/{personId}/notes", JournalEndpoints.CreateJournalNote);
+        groupBuilder.MapGet("persons/{personId}/notes", JournalEndpoints.QueryJournalNotes);
+        groupBuilder.MapPost("persons", JournalEndpoints.CreatePerson);
 
         return app;
     }
