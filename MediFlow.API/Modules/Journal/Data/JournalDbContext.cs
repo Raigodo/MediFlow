@@ -1,6 +1,11 @@
-﻿using MediFlow.API.Modules.Journal.Domain.Notes;
+﻿using MediFlow.API.Modules.Auth.Domain.User;
+using MediFlow.API.Modules.Journal.Domain.Notes;
+using MediFlow.API.Modules.Journal.Domain.Notes.Values;
 using MediFlow.API.Modules.Journal.Domain.OrdinatoryRecords;
+using MediFlow.API.Modules.Journal.Domain.OrdinatoryRecords.Values;
 using MediFlow.API.Modules.Journal.Domain.Persons;
+using MediFlow.API.Modules.Journal.Domain.Persons.Values;
+using MediFlow.API.Shared.StronglyTypedId;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediFlow.API.Modules.Journal.Data;
@@ -13,8 +18,27 @@ public class JournalDbContext(DbContextOptions<JournalDbContext> options) : DbCo
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Note>(note =>
+        {
+            note.Property(n => n.NoteId)
+                .HasConversion<TypedIdConverter<NoteId>>();
+            note.Property(n => n.CreatorId)
+                .HasConversion<TypedIdConverter<UserId>>();
+            note.Property(n => n.TargetPersonId)
+                .HasConversion<TypedIdConverter<PersonId>>();
+        });
+
+
+        modelBuilder.Entity<OrdinatoryRecord>()
+            .Property(or => or.Id)
+            .HasConversion<TypedIdConverter<OrdinatoryRecordId>>();
+
+
         modelBuilder.Entity<Person>(person =>
         {
+            person.Property(p => p.Id)
+                .HasConversion<TypedIdConverter<PersonId>>();
+
             person.HasKey(p => p.Id);
 
             person.HasMany(p => p.NotesAbout)
@@ -24,6 +48,6 @@ public class JournalDbContext(DbContextOptions<JournalDbContext> options) : DbCo
             person.HasMany(p => p.OrdinatoryList)
                 .WithOne(or => or.TargetPerson)
                 .HasForeignKey(or => or.TargetPersonId);
-        }); 
+        });
     }
 }

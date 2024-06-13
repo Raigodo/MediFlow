@@ -2,7 +2,4 @@
 
 namespace MediFlow.API.Modules.Auth.Domain.User;
 
-public class User : IdentityUser
-{
-
-}
+public class User : IdentityUser<UserId>;

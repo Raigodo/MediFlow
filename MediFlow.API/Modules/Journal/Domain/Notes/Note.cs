@@ -1,5 +1,7 @@
-﻿using MediFlow.API.Modules.Journal.Domain.OrdinatoryRecords;
+﻿using MediFlow.API.Modules.Auth.Domain.User;
+using MediFlow.API.Modules.Journal.Domain.Notes.Values;
 using MediFlow.API.Modules.Journal.Domain.Persons;
+using MediFlow.API.Modules.Journal.Domain.Persons.Values;
 
 namespace MediFlow.API.Modules.Journal.Domain.Notes;
 
@@ -7,19 +9,20 @@ public sealed class Note
 {
     public Note()
     {
-        NoteId = Guid.NewGuid().ToString();
+        NoteId = new(Guid.NewGuid());
         CreatedAt = DateTime.UtcNow;
         ModifiedAt = DateTime.UtcNow;
     }
 
-    public string NoteId { get; set; }
-    public string CreatorId { get; set; }
-    public string TargetPersonId { get; set; }
-    public string NoteBody { get; set; }
-    public string NoteTag { get; set; }
+    public NoteId NoteId { get; set; }
+    public UserId CreatorId { get; set; }
+    public PersonId TargetPersonId { get; set; }
+
+    public string NoteBody { get; set; } = string.Empty;
+    public string NoteTag { get; set; } = string.Empty;
 
     public DateTime CreatedAt { get; set; }
     public DateTime ModifiedAt { get; set; }
 
-    public Person TargetPerson { get; set; }
+    public Person TargetPerson { get; set; } = default;
 }

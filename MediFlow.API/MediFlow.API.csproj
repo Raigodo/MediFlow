@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ErrorOr" Version="2.0.1" />
     <PackageReference Include="Mediator.Abstractions" Version="2.1.7" />
     <PackageReference Include="Mediator.SourceGenerator" Version="2.1.7">
       <PrivateAssets>all</PrivateAssets>
@@ -23,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Journal\UseCases\EditNote\" />
-    <Folder Include="Modules\Journal\UseCases\DeleteNote\" />
+    <Folder Include="Modules\Journal\UseCases\Notes\EditNote\" />
+    <Folder Include="Modules\Journal\UseCases\Notes\DeleteNote\" />
   </ItemGroup>
 
 </Project>

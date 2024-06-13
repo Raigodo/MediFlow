@@ -1,4 +1,4 @@
-﻿namespace MediFlow.API.Shared.Util.Data;
+﻿namespace MediFlow.API.Shared.Data;
 
 public interface IUnitOfWork
 {

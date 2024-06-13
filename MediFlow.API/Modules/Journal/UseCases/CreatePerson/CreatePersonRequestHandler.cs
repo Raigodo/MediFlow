@@ -1,22 +1,24 @@
 ﻿using Mediator;
 using MediFlow.API.Modules.Journal.Data;
 using MediFlow.API.Modules.Journal.Domain.Persons;
-using MediFlow.API.Shared.Util.Result;
+using MediFlow.API.Modules.Journal.Domain.Persons.Values;
+using MediFlow.API.Shared.CurrentUser;
 
 namespace MediFlow.API.Modules.Journal.UseCases.CreatePerson;
 
 public class CreatePersonRequestHandler(
-    JournalDbContext dbCtx) : IRequestHandler<CreatePersonRequest, ErrorOr<Person>>
+    JournalDbContext dbCtx,
+    IUserContext userCtx) : IRequestHandler<CreatePersonRequest, IResult>
 {
-    public async ValueTask<ErrorOr<Person>> Handle(CreatePersonRequest request, CancellationToken cancellationToken)
+    public async ValueTask<IResult> Handle(CreatePersonRequest request, CancellationToken cancellationToken)
     {
         var newPerson = new Person()
         {
-            Id = request.Id,
+            Id = new PersonId(request.Id),
             Name = request.Name,
         };
         await dbCtx.Persons.AddAsync(newPerson);
         dbCtx.SaveChanges();
-        return newPerson;
+        return Results.Ok(newPerson);
     }
 }

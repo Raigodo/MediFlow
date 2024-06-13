@@ -1,5 +1,8 @@
 ﻿using MediFlow.API.Modules.Journal.Data;
-using MediFlow.API.Modules.Journal.Endpoints;
+using MediFlow.API.Modules.Journal.UseCases.CreatePerson;
+using MediFlow.API.Modules.Journal.UseCases.Notes.CreateNote;
+using MediFlow.API.Modules.Journal.UseCases.Notes.GetNotes;
+using MediFlow.API.Shared.MediateRoutes;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediFlow.API.Modules.Journal;
@@ -21,9 +24,9 @@ public static class DependencyInjection
             .WithTags("Journal")
             .RequireAuthorization();
 
-        groupBuilder.MapPost("persons/{personId}/notes", JournalEndpoints.CreateJournalNote);
-        groupBuilder.MapGet("persons/{personId}/notes", JournalEndpoints.QueryJournalNotes);
-        groupBuilder.MapPost("persons", JournalEndpoints.CreatePerson);
+        groupBuilder.MediateGet<GetNotesQuery>("persons/{personId}/notes");
+        groupBuilder.MediatePost<CreateNoteRequest>("persons/{personId}/notes");
+        groupBuilder.MediatePost<CreatePersonRequest>("persons");
 
         return app;
     }
