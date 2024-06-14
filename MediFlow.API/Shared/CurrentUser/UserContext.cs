@@ -1,16 +1,13 @@
-﻿namespace MediFlow.API.Shared.CurrentUser;
+﻿using MediFlow.API.Modules.Account.Domain.User;
+using Microsoft.AspNetCore.Identity;
 
-internal sealed class UserContext(IHttpContextAccessor httpContextAccessor)
+namespace MediFlow.API.Shared.CurrentUser;
+
+internal sealed class UserContext(
+    IHttpContextAccessor httpContextAccessor,
+    UserManager<User> userManager)
     : IUserContext
 {
-    public string UserEmail =>
-        httpContextAccessor
-            .HttpContext?
-            .User
-            .Identity?
-            .Name ??
-        throw new ApplicationException("User context is unavailable");
-
     public bool IsAuthenticated =>
         httpContextAccessor
             .HttpContext?
@@ -18,4 +15,21 @@ internal sealed class UserContext(IHttpContextAccessor httpContextAccessor)
             .Identity?
             .IsAuthenticated ??
         throw new ApplicationException("User context is unavailable");
+
+
+    public async Task<UserId> GetUserIdAsync()
+    {
+        var usersEmail = httpContextAccessor
+           .HttpContext?
+           .User
+           .Identity?
+           .Name ??
+           throw new ApplicationException("User context is unavailable");
+
+        var currentUser = await userManager.FindByEmailAsync(usersEmail);
+
+        return currentUser?.Id ??
+           throw new ApplicationException($"User with email {usersEmail} was not found");
+
+    }
 }

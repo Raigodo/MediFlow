@@ -1,10 +1,10 @@
-﻿using MediFlow.API.Modules.Auth.Domain.User;
+﻿using MediFlow.API.Modules.Account.Domain.User;
 using MediFlow.API.Shared.StronglyTypedId;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace MediFlow.API.Modules.Auth.Data;
+namespace MediFlow.API.Modules.Account.Data;
 
 public class AuthDbContext(DbContextOptions<AuthDbContext> options) :
     IdentityDbContext<User, IdentityRole<UserId>, UserId>(options)

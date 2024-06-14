@@ -1,10 +1,9 @@
-﻿using MediFlow.API.Modules.Auth.Data;
-using MediFlow.API.Modules.Auth.Domain.User;
-using Microsoft.AspNetCore.Authentication;
+﻿using MediFlow.API.Modules.Account.Data;
+using MediFlow.API.Modules.Account.Domain.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace MediFlow.API.Modules.Auth;
+namespace MediFlow.API.Modules.Account;
 
 public static class DependencyInjection
 {

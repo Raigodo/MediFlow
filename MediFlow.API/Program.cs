@@ -1,5 +1,5 @@
 using MediFlow.API.DependencyInjection;
-using MediFlow.API.Modules.Auth;
+using MediFlow.API.Modules.Account;
 using MediFlow.API.Modules.Journal;
 using MediFlow.API.Shared.CurrentUser;
 

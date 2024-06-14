@@ -1,4 +1,4 @@
-﻿using MediFlow.API.Modules.Auth.Domain.User;
+﻿using MediFlow.API.Modules.Account.Domain.User;
 using MediFlow.API.Modules.Journal.Domain.Notes.Values;
 using MediFlow.API.Modules.Journal.Domain.Persons;
 using MediFlow.API.Modules.Journal.Domain.Persons.Values;

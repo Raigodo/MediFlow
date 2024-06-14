@@ -1,8 +1,10 @@
-﻿namespace MediFlow.API.Shared.CurrentUser;
+﻿using MediFlow.API.Modules.Account.Domain.User;
+
+namespace MediFlow.API.Shared.CurrentUser;
 
 public interface IUserContext
 {
     bool IsAuthenticated { get; }
 
-    string UserEmail { get; }
+    Task<UserId> GetUserIdAsync();
 }

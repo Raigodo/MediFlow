@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace MediFlow.API.Modules.Auth.Domain.User;
+namespace MediFlow.API.Modules.Account.Domain.User;
 
 public class User : IdentityUser<UserId>;

@@ -1,7 +1,9 @@
 ﻿using MediFlow.API.Modules.Journal.Data;
-using MediFlow.API.Modules.Journal.UseCases.CreatePerson;
 using MediFlow.API.Modules.Journal.UseCases.Notes.CreateNote;
-using MediFlow.API.Modules.Journal.UseCases.Notes.GetNotes;
+using MediFlow.API.Modules.Journal.UseCases.Notes.DeleteNote;
+using MediFlow.API.Modules.Journal.UseCases.Notes.EditNote;
+using MediFlow.API.Modules.Journal.UseCases.Notes.GetPersonNotes;
+using MediFlow.API.Modules.Journal.UseCases.Persons;
 using MediFlow.API.Shared.MediateRoutes;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,9 +26,11 @@ public static class DependencyInjection
             .WithTags("Journal")
             .RequireAuthorization();
 
-        groupBuilder.MediateGet<GetNotesQuery>("persons/{personId}/notes");
-        groupBuilder.MediatePost<CreateNoteRequest>("persons/{personId}/notes");
-        groupBuilder.MediatePost<CreatePersonRequest>("persons");
+        groupBuilder.MediateGet<GetPersonNotes>("persons/{personId}/notes");
+        groupBuilder.MediatePost<CreateNote>("persons/{personId}/notes");
+        groupBuilder.MediatePut<EditNote>("persons/{personId}/notes/{noteId}");
+        groupBuilder.MediateDelete<DeleteNote>("persons/{personId}/notes/{noteId}");
+        groupBuilder.MediatePost<CreatePerson>("persons");
 
         return app;
     }

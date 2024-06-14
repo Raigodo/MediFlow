@@ -2,4 +2,4 @@
 
 namespace MediFlow.API.Modules.Journal.UseCases.Notes.CreateNote;
 
-public record CreateNoteRequest(Guid TargetPersonId, string noteContent) : IHttpRequest;
+public record CreateNote(Guid PersonId, string NoteContent) : IHttpRequest;
