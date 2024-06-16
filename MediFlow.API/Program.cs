@@ -1,21 +1,27 @@
+using FastEndpoints;
+using Journal.Shared.StronglyTypedId;
 using MediFlow.API.DependencyInjection;
-using MediFlow.API.Modules.Account;
-using MediFlow.API.Modules.Journal;
-using MediFlow.API.Shared.CurrentUser;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
-builder.Services.AddUserContext();
-builder.Services.AddAuthModule();
-builder.Services.AddJournalModule();
+//builder.Services.AddUserContext();
 
-builder.Services.AddMediator(options =>
+builder.Services.AddFastEndpoints(options =>
 {
-    options.ServiceLifetime = ServiceLifetime.Scoped;
+    options.DisableAutoDiscovery = true;
+    options.Assemblies = new[]
+    {
+        typeof(Program).Assembly,
+        typeof(ITypedId).Assembly
+    };
 });
+
+//builder.Services.AddAuthModule();
+//builder.Services.AddJournalModule();
+
 
 builder.Services.AddSwagger();
 
@@ -33,8 +39,10 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseAuthModule();
-app.UseJournalModule();
+app.UseFastEndpoints();
+
+//app.UseAuthModule();
+//app.UseJournalModule();
 
 
 app.Run();
