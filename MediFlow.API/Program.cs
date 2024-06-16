@@ -1,5 +1,5 @@
 using FastEndpoints;
-using Journal.Shared.StronglyTypedId;
+using Journal;
 using MediFlow.API.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,12 +15,12 @@ builder.Services.AddFastEndpoints(options =>
     options.Assemblies = new[]
     {
         typeof(Program).Assembly,
-        typeof(ITypedId).Assembly
+        typeof(IJournalModulePointer).Assembly
     };
 });
 
 //builder.Services.AddAuthModule();
-//builder.Services.AddJournalModule();
+builder.Services.AddJournalModule();
 
 
 builder.Services.AddSwagger();
@@ -40,9 +40,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseFastEndpoints();
-
-//app.UseAuthModule();
-//app.UseJournalModule();
-
 
 app.Run();

@@ -1,5 +1,3 @@
 ﻿namespace Journal;
 
-public interface IJournalModulePointer
-{
-}
+public interface IJournalModulePointer;

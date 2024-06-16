@@ -13,6 +13,11 @@
 	<ItemGroup>
 	  <PackageReference Include="FastEndpoints" Version="5.26.0" />
 	  <PackageReference Include="FastEndpoints.Swagger" Version="5.26.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Data\Database\" />
 	</ItemGroup>
 
 </Project>

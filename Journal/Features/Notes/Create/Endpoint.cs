@@ -1,8 +1,9 @@
 ﻿using FastEndpoints;
+using Journal.Data;
 
 namespace Journal.Features.Notes.Create;
 
-public sealed class Endpoint : Endpoint<JournalRequest, JournalResponse>
+public sealed class Endpoint : Endpoint<CreateNoteRequest>
 {
     public override void Configure()
     {
@@ -10,8 +11,10 @@ public sealed class Endpoint : Endpoint<JournalRequest, JournalResponse>
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(JournalRequest r, CancellationToken c)
+    public JournalDbContext Db { get; set; }
+
+    public override async Task HandleAsync(CreateNoteRequest r, CancellationToken c)
     {
-        await SendAsync(new JournalResponse("Hello World!"), cancellation: c);
+        await SendAsync(new { Message = "Hi" }, cancellation: c);
     }
 }
