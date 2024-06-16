@@ -18,6 +18,18 @@
 
 	<ItemGroup>
 	  <Folder Include="Data\Database\" />
+	  <Folder Include="Features\Note\Edit\" />
+	  <Folder Include="Features\Note\Delete\" />
+	  <Folder Include="Features\Note\GetOne\" />
+	  <Folder Include="Features\Note\GetMultiple\" />
+	  <Folder Include="Features\Ordinatory\GetHistory\" />
+	  <Folder Include="Features\Ordinatory\AddActual\" />
+	  <Folder Include="Features\Ordinatory\GetActual\" />
+	  <Folder Include="Features\Ordinatory\Deprecate\" />
+	  <Folder Include="Features\Person\Delete\" />
+	  <Folder Include="Features\Person\Edit\" />
+	  <Folder Include="Features\Person\InspectOne\" />
+	  <Folder Include="Features\Person\ViewMultiple\" />
 	</ItemGroup>
 
 </Project>
