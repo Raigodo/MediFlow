@@ -29,9 +29,6 @@ namespace Journal.Data.Migrations
                     b.Property<Guid>("CreatorId")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("NoteBody")
                         .IsRequired()
                         .HasColumnType("TEXT");

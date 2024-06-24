@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Journal.Data;
 
-public class JournalDbContext(DbContextOptions<JournalDbContext> options) : DbContext(options)
+
+public class JournalDbContext(DbContextOptions<JournalDbContext> options) : DbContext(options), IJournalDbContext
 {
     public DbSet<Note> Notes { get; set; }
     public DbSet<Person> Persons { get; set; }
@@ -30,5 +31,10 @@ public class JournalDbContext(DbContextOptions<JournalDbContext> options) : DbCo
                 .WithOne(o => o.TargetPerson)
                 .HasForeignKey(o => o.TargetPersonId);
         });
+    }
+
+    async Task IJournalDbContext.SaveChangesAsync(CancellationToken ct)
+    {
+        await base.SaveChangesAsync(ct);
     }
 }

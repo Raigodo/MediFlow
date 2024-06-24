@@ -5,9 +5,23 @@ namespace Journal.Domain.Persons;
 
 public class Person
 {
-    public required Guid Id { get; set; }
-    public required string Name { get; set; } = string.Empty;
+    private Person(Guid id, string name)
+    {
+        Id = id;
+        Name = name;
+    }
+    public Guid Id { get; init; }
+    public string Name { get; private set; }
 
-    public IEnumerable<Note> Notes { get; set; } = [];
-    public IEnumerable<OrdinatoryRecord> OrdinatoryRecords { get; set; } = [];
+    public IEnumerable<Note> Notes { get; init; } = [];
+    public IEnumerable<OrdinatoryRecord> OrdinatoryRecords { get; init; } = [];
+
+
+    public static Person Create(string name)
+    {
+        var person = new Person(
+            id: Guid.NewGuid(),
+            name: name);
+        return person;
+    }
 }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Journal.Data.Migrations
 {
     [DbContext(typeof(JournalDbContext))]
-    [Migration("20240616181851_Initial-Create")]
-    partial class InitialCreate
+    [Migration("20240624204201_initial-journal-migration")]
+    partial class initialjournalmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,9 +30,6 @@ namespace Journal.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("CreatorId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NoteBody")
