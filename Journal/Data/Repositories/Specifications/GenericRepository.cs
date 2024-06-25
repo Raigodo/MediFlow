@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Journal._Experimental;
+namespace Journal.Data.Repositories.Specifications;
 
-public abstract class GenericRepository<T> where T : class
+public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    protected DbSet<T> Set { get; }
+    protected abstract DbSet<T> Set { get; }
 
     public virtual async Task<IEnumerable<T>> GetManyAsync() => await Set.ToListAsync();
     public virtual async Task<IEnumerable<T>> GetManyAsync(ISpecification<T> spec)
     {
         var query = Set.AsQueryable();
         return await ApplySpecification(query, spec)
+            .AsNoTrackingWithIdentityResolution()
             .ToListAsync();
     }
     public virtual async Task<IEnumerable<TOut>> GetManyAsync<TOut>(ISpecification<T, TOut> spec)
@@ -18,34 +19,42 @@ public abstract class GenericRepository<T> where T : class
     {
         var query = Set.AsQueryable();
         return await ApplySpecification(query, spec)
+            .AsNoTrackingWithIdentityResolution()
             .ToListAsync();
     }
 
-    public virtual async Task<T?> GetOneAsync(ISpecification<T> spec)
+    public virtual async Task<T?> GetFirstAsync(ISpecification<T> spec)
     {
         var query = Set.AsQueryable();
         return await ApplySpecification(query, spec)
+            .AsNoTrackingWithIdentityResolution()
             .FirstOrDefaultAsync();
     }
-    public virtual async Task<TOut?> GetOneAsync<TOut>(ISpecification<T, TOut> spec)
+    public virtual async Task<TOut?> GetFirstAsync<TOut>(ISpecification<T, TOut> spec)
         where TOut : class
     {
         var query = Set.AsQueryable();
         return await ApplySpecification(query, spec)
+            .AsNoTrackingWithIdentityResolution()
             .FirstOrDefaultAsync();
     }
 
-    public virtual async Task AddAsync(T entity)
+    public virtual void Add(T entity)
     {
-        await Set.AddAsync(entity);
+        Set.Add(entity);
+    }
+
+    public virtual void Update(T entity)
+    {
+        Set.Update(entity);
     }
 
     public virtual async Task DeleteAsync(ISpecification<T> spec)
     {
-        var entity = await GetOneAsync(spec);
+        var entity = await GetFirstAsync(spec);
         Set.Remove(entity);
     }
-    public virtual async Task DeleteAsync(T entity)
+    public virtual void Delete(T entity)
     {
         Set.Remove(entity);
     }

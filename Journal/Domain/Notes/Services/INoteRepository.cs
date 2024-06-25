@@ -1,5 +1,5 @@
-﻿namespace Journal.Domain.Notes.Services;
+﻿using Journal.Data.Repositories.Specifications;
 
-public interface INoteRepository
-{
-}
+namespace Journal.Domain.Notes.Services;
+
+public interface INoteRepository : IGenericRepository<Note>;

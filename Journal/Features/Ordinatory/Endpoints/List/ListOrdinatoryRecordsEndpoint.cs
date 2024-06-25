@@ -13,6 +13,6 @@ public sealed class ListOrdinatoryRecordsEndpoint : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken c)
     {
-        await SendAsync(new { Message = "Done" }, cancellation: c);
+        await SendAsync("not implemented", cancellation: c);
     }
 }

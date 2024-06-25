@@ -16,21 +16,12 @@ builder.Services.AddFastEndpoints(options =>
     ];
 });
 builder.Services.SwaggerDocument();
+builder.Services.AddSwaggerWithAuthSupport();
 
 builder.Services.AddJournalModule();
 
-builder.Services.AddSwagger();
-
-
 var app = builder.Build();
 
-
-
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
 
 app.UseHttpsRedirection();
 

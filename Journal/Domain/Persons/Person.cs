@@ -3,7 +3,7 @@ using Journal.Domain.OrdinatoryRecords;
 
 namespace Journal.Domain.Persons;
 
-public class Person
+public sealed class Person
 {
     private Person(Guid id, string name)
     {

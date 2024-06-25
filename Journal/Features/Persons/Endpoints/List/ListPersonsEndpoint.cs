@@ -12,6 +12,6 @@ public sealed class ListPersonsEndpoint : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken c)
     {
-        await SendAsync(new { persons = "Ok" }, cancellation: c);
+        await SendAsync("not implemented", cancellation: c);
     }
 }

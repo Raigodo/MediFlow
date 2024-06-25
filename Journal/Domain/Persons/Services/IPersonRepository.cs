@@ -1,5 +1,5 @@
-﻿namespace Journal.Domain.Persons.Services;
+﻿using Journal.Data.Repositories.Specifications;
 
-public interface IPersonRepository
-{
-}
+namespace Journal.Domain.Persons.Services;
+
+public interface IPersonRepository : IGenericRepository<Person>;

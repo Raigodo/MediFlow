@@ -13,6 +13,6 @@ public sealed class CreateNoteEndpoint : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken c)
     {
-        await SendAsync("ok", cancellation: c);
+        await SendAsync("not implemented", cancellation: c);
     }
 }

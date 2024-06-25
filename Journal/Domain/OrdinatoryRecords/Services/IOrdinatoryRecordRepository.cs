@@ -1,5 +1,5 @@
-﻿namespace Journal.Domain.OrdinatoryRecords.Services;
+﻿using Journal.Data.Repositories.Specifications;
 
-public interface IOrdinatoryRecordRepository
-{
-}
+namespace Journal.Domain.OrdinatoryRecords.Services;
+
+public interface IOrdinatoryRecordRepository : IGenericRepository<OrdinatoryRecord>;

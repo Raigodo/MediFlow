@@ -1,4 +1,6 @@
 ﻿using Journal.Data;
+using Journal.Data.Repositories;
+using Journal.Domain.Persons.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +17,9 @@ public static class DependencyInjection
             string dbFilePath = Path.Combine(basePath, "Journal", "Data", "Database", "Journal.db");
             options.UseSqlite($"DataSource={dbFilePath}");
         });
+
+        services.AddScoped<IPersonRepository, PersonRepository>();
+
         return services;
     }
 }
