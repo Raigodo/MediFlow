@@ -11,7 +11,7 @@ public class Person
         Name = name;
     }
     public Guid Id { get; init; }
-    public string Name { get; private set; }
+    public string Name { get; set; }
 
     public IEnumerable<Note> Notes { get; init; } = [];
     public IEnumerable<OrdinatoryRecord> OrdinatoryRecords { get; init; } = [];

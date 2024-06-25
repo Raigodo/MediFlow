@@ -1,5 +1,4 @@
 ﻿using FastEndpoints;
-using Journal.Data;
 
 namespace Journal.Features.Persons.Endpoints.List;
 
