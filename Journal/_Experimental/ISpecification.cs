@@ -1,4 +1,4 @@
-﻿namespace Journal.Experimental;
+﻿namespace Journal._Experimental;
 
 public interface ISpecification<T> where T : class
 {

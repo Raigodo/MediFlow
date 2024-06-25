@@ -1,42 +1,53 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Journal.Experimental;
+namespace Journal._Experimental;
 
 public abstract class GenericRepository<T> where T : class
 {
     protected DbSet<T> Set { get; }
 
+    public virtual async Task<IEnumerable<T>> GetManyAsync() => await Set.ToListAsync();
     public virtual async Task<IEnumerable<T>> GetManyAsync(ISpecification<T> spec)
     {
-        throw new NotImplementedException();
+        var query = Set.AsQueryable();
+        return await ApplySpecification(query, spec)
+            .ToListAsync();
     }
     public virtual async Task<IEnumerable<TOut>> GetManyAsync<TOut>(ISpecification<T, TOut> spec)
         where TOut : class
     {
-        throw new NotImplementedException();
+        var query = Set.AsQueryable();
+        return await ApplySpecification(query, spec)
+            .ToListAsync();
     }
 
-    public virtual async Task<T> GetOneAsync(ISpecification<T> spec)
+    public virtual async Task<T?> GetOneAsync(ISpecification<T> spec)
     {
-        throw new NotImplementedException();
+        var query = Set.AsQueryable();
+        return await ApplySpecification(query, spec)
+            .FirstOrDefaultAsync();
     }
-    public virtual async Task<TOut> GetOneAsync<TOut>(ISpecification<T, TOut> spec)
+    public virtual async Task<TOut?> GetOneAsync<TOut>(ISpecification<T, TOut> spec)
         where TOut : class
     {
-        throw new NotImplementedException();
+        var query = Set.AsQueryable();
+        return await ApplySpecification(query, spec)
+            .FirstOrDefaultAsync();
     }
 
-    public virtual async Task PutAsync(ISpecification<T> spec, T entity)
+    public virtual async Task AddAsync(T entity)
     {
-        throw new NotImplementedException();
+        await Set.AddAsync(entity);
     }
+
     public virtual async Task DeleteAsync(ISpecification<T> spec)
     {
-        throw new NotImplementedException();
+        var entity = await GetOneAsync(spec);
+        Set.Remove(entity);
     }
     public virtual async Task DeleteAsync(T entity)
     {
-        throw new NotImplementedException();
+        Set.Remove(entity);
     }
 
 
