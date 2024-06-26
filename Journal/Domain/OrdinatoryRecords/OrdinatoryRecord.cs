@@ -15,7 +15,7 @@ public sealed class OrdinatoryRecord
     }
 
     public Guid Id { get; init; }
-    public string MedicineName { get; private set; }
+    public string MedicineName { get; set; }
 
     public Guid TargetPersonId { get; init; }
     public Person TargetPerson { get; init; }

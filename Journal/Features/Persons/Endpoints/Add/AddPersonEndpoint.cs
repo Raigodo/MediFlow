@@ -1,6 +1,7 @@
 ﻿using FastEndpoints;
-using Journal.Domain.Persons;
 using Journal.Domain.Persons.Services;
+using Journal.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Journal.Features.Persons.Endpoints.Add;
 
@@ -12,12 +13,11 @@ public sealed class AddPersonEndpoint : EndpointWithoutRequest
         AllowAnonymous();
     }
 
-    public required IPersonRepository Persons { get; set; }
+    public required IPersonRepository Persons { get; init; }
+    public required IAcessGuardService AcessGuard { get; init; }
 
-    public override async Task HandleAsync(CancellationToken c)
+    public override async Task HandleAsync(CancellationToken ct)
     {
-        var person = Person.Create("some name");
-        await Persons.AddAsync(person);
-        await SendAsync("lets say ok", cancellation: c);
+        await SendAsync("not implemented yet", cancellation: ct);
     }
 }

@@ -9,28 +9,30 @@ public sealed class Note
         Guid creatorId,
         Guid targetPersonId,
         string noteBody,
-        string noteTag)
+        string noteTag,
+        DateTime createdAt)
     {
         Id = id;
         CreatorId = creatorId;
         TargetPersonId = targetPersonId;
         NoteBody = noteBody;
         NoteTag = noteTag;
+        CreatedAt = createdAt;
     }
 
     public Guid Id { get; init; }
     public Guid CreatorId { get; init; }
     public Guid TargetPersonId { get; init; }
 
-    public string NoteBody { get; internal set; }
-    public string NoteTag { get; internal set; }
+    public string NoteBody { get; set; }
+    public string NoteTag { get; set; }
 
-    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; init; }
 
-    public Person TargetPerson { get; init; }
+    public Person? TargetPerson { get; init; }
 
 
-    internal static Note Create(
+    public static Note Create(
         Guid creatorId,
         Guid targetPersonId,
         string noteBody,
@@ -41,7 +43,8 @@ public sealed class Note
             creatorId: creatorId,
             targetPersonId: targetPersonId,
             noteBody: noteBody,
-            noteTag: noteTag);
+            noteTag: noteTag,
+            createdAt: DateTime.UtcNow);
         return note;
     }
 }

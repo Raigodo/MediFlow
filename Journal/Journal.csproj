@@ -39,6 +39,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Data\Database\" />
+	  <Folder Include="Features\Notes\Services\" />
 	  <Folder Include="Features\Ordinatory\Services\" />
 	  <Folder Include="Features\Persons\Services\" />
 	</ItemGroup>

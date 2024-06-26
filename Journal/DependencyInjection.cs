@@ -1,6 +1,7 @@
 ﻿using Journal.Data;
-using Journal.Data.Repositories;
+using Journal.Data.Services;
 using Journal.Domain.Persons.Services;
+using Journal.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IPersonRepository, PersonRepository>();
+        services.AddScoped<IAcessGuardService, AcessGuardService>();
 
         return services;
     }

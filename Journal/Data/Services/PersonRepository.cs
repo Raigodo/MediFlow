@@ -2,7 +2,7 @@
 using Journal.Domain.Persons.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace Journal.Data.Repositories;
+namespace Journal.Data.Services;
 
 public sealed class PersonRepository : IPersonRepository
 {

@@ -2,7 +2,7 @@
 using Journal.Domain.OrdinatoryRecords.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace Journal.Data.Repositories;
+namespace Journal.Data.Services;
 
 public sealed class OrdinatoryRecordRepository : IOrdinatoryRecordRepository
 {

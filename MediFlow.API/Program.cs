@@ -29,8 +29,8 @@ app.UseFastEndpoints()
     .UseSwaggerGen();
 
 
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 
