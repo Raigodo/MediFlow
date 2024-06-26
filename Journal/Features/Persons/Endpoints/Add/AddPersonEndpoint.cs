@@ -1,9 +1,6 @@
 ﻿using FastEndpoints;
-using Journal.Data;
-using Journal.Data.Repositories.Specifications;
 using Journal.Domain.Persons;
 using Journal.Domain.Persons.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace Journal.Features.Persons.Endpoints.Add;
 
@@ -15,10 +12,12 @@ public sealed class AddPersonEndpoint : EndpointWithoutRequest
         AllowAnonymous();
     }
 
-    public required IPersonRepository PersonRepository { get; set; }
+    public required IPersonRepository Persons { get; set; }
 
     public override async Task HandleAsync(CancellationToken c)
     {
-        await SendAsync("not implemented", cancellation: c);
+        var person = Person.Create("some name");
+        await Persons.AddAsync(person);
+        await SendAsync("lets say ok", cancellation: c);
     }
 }
