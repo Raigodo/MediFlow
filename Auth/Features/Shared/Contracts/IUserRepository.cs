@@ -9,5 +9,5 @@ public interface IUserRepository
 
     void Remove(User user);
     void Add(User user);
-    Task SaveChangesAsync(CancellationToken ct);
+    Task SaveChangesAsync(CancellationToken ct = default);
 }

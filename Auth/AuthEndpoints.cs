@@ -1,4 +1,5 @@
 ﻿using Account.Features.Login;
+using Account.Features.RefreshToken;
 using Account.Features.Register;
 using Mediator;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +15,7 @@ public static class AuthEndpoints
     {
         app.MapPost("register", Register);
         app.MapPost("login", Login);
+        app.MapPost("refresh", RefrshToken);
 
         return app;
     }
@@ -28,9 +30,19 @@ public static class AuthEndpoints
 
     private record LoginDto(string email, string password);
     private static async Task<IResult> Login(LoginDto req,
-        [FromServices] IMediator sender, CancellationToken ct)
+        IMediator sender, CancellationToken ct)
     {
         var result = await sender.Send(new LoginRequest(req.email, req.password), ct);
+        return Results.Ok(result);
+    }
+
+    private record RefreshTokenDto(string refreshToken);
+    private static async Task<IResult> RefrshToken(RefreshTokenDto req,
+        ISender sender, CancellationToken ct)
+    {
+        var result = await sender.Send(new RefrestTokenRequest(req.refreshToken));
+        if (result is null)
+            return Results.BadRequest();
         return Results.Ok(result);
     }
 }

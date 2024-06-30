@@ -6,16 +6,29 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Account.Features.Login.Services;
+namespace Account.Features.Shared.Services;
 
 public class JwtProvider(IOptions<JwtOptions> options)
 {
     private readonly JwtOptions _options = options.Value;
 
-    public string GenerateToken(User user)
+    public string GenerateAcessToken(User user)
     {
-        Claim[] claims = [new("userId", user.Id.ToString())];
+        Claim[] claims = [new(JwtClaimNames.UserId, user.Id.ToString())];
+        return GenerateToken(user, claims);
+    }
 
+    public string GenerateRefreshToken(User user)
+    {
+        Claim[] claims = [
+            new(JwtClaimNames.UserId, user.Id.ToString()),
+            new(JwtClaimNames.RefreshKey, user.RefreshTokenKey.ToString())
+        ];
+        return GenerateToken(user, claims);
+    }
+
+    private string GenerateToken(User user, Claim[] claimsToInclude)
+    {
         var secretKeyBytes = Encoding.UTF8.GetBytes(_options.SecretKey);
         var securityKey = new SymmetricSecurityKey(secretKeyBytes);
 
@@ -23,7 +36,7 @@ public class JwtProvider(IOptions<JwtOptions> options)
 
         var token = new JwtSecurityToken(
             signingCredentials: signingCredentials,
-            claims: claims,
+            claims: claimsToInclude,
             issuer: _options.Issuer,
             audience: _options.Audience,
             expires: DateTime.UtcNow.AddMinutes(_options.ExpiresMinutes));

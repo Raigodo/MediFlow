@@ -4,9 +4,8 @@ namespace MediFlow.API.DependencyInjection;
 
 public static class SwaggerDIExtensions
 {
-    public static IServiceCollection AddSwaggerWithAuthSupport(this IServiceCollection services)
+    public static IServiceCollection AddSwaggerGenWithJwtAuthSupport(this IServiceCollection services)
     {
-        services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo { Title = "MediFlow.API", Version = "v1" });

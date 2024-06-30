@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Login\Services\" />
     <Folder Include="Features\Logout\" />
-    <Folder Include="Features\RefreshToken\" />
   </ItemGroup>
 
 	<ItemGroup>

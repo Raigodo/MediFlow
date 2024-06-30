@@ -1,5 +1,5 @@
-﻿using Account.Features.Login.Services;
-using Account.Features.Shared.Contracts;
+﻿using Account.Features.Shared.Contracts;
+using Account.Features.Shared.Services;
 using FluentValidation;
 using Mediator;
 
@@ -7,7 +7,7 @@ namespace Account.Features.Login;
 
 public readonly record struct LoginRequest(
     string email,
-    string password) : IRequest<string>
+    string password) : IRequest<LoginResponse>
 {
     public sealed class Validator : AbstractValidator<LoginRequest>
     {
@@ -18,25 +18,31 @@ public readonly record struct LoginRequest(
     }
 }
 
+public sealed record LoginResponse(
+    string acessToken,
+    string refreshToken);
+
+
 public sealed class LoginRequestHandler(
     JwtProvider jwtProvider,
-    IUserRepository userRepository,
-    IPasswordHasher hasher) : IRequestHandler<LoginRequest, string>
+    IUserRepository users,
+    IPasswordHasher hasher) : IRequestHandler<LoginRequest, LoginResponse>
 {
-    public async ValueTask<string> Handle(LoginRequest request, CancellationToken cancellationToken)
+    public async ValueTask<LoginResponse> Handle(LoginRequest request, CancellationToken ct)
     {
-        var user = await userRepository.GetUserByEmailAsync(request.email);
+        var user = await users.GetUserByEmailAsync(request.email);
 
         if (user == null)
-            return "";
+            return null;
 
         if (!hasher.Veriffy(request.password, user.PasswordHash))
         {
-            return "";
+            return null;
         }
 
-        var generatedToken = jwtProvider.GenerateToken(user);
+        var acessToken = jwtProvider.GenerateAcessToken(user);
+        var refreshToken = jwtProvider.GenerateRefreshToken(user);
 
-        return generatedToken;
+        return new LoginResponse(acessToken, refreshToken);
     }
 }

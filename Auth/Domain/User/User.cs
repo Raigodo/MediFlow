@@ -19,6 +19,8 @@ public class User
     public string PasswordHash { get; private set; }
     public string Email { get; private set; }
 
+    public Guid RefreshTokenKey { get; private set; }
+
     public static User Create(
         Guid id,
         string name,
@@ -37,4 +39,6 @@ public class User
         var user = new User(Guid.NewGuid(), name, passwordHash, email);
         return user;
     }
+
+    public void RegenerateRefreshTokenKey() => RefreshTokenKey = Guid.NewGuid();
 }

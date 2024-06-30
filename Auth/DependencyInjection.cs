@@ -2,8 +2,9 @@
 using Account.Data;
 using Account.Data.Repositories;
 using Account.Data.Services;
-using Account.Features.Login.Services;
+using Account.Features.RefreshToken.Services;
 using Account.Features.Shared.Contracts;
+using Account.Features.Shared.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ public static class DependencyInjection
         services.AddSingleton<JwtProvider>();
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddSingleton<RefreshTokenValidator>();
 
         return services;
     }
@@ -39,17 +41,21 @@ public static class DependencyInjection
         var jwtOptions = services.BuildServiceProvider()
             .GetRequiredService<IOptions<JwtOptions>>();
 
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-                options.TokenValidationParameters = new()
-                {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(jwtOptions.Value.SecretKey))
-                });
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            options.TokenValidationParameters = new()
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(jwtOptions.Value.SecretKey))
+            });
         return services;
     }
 
