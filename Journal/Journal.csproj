@@ -1,47 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Features\Note\**" />
-    <Compile Remove="Features\Ordinatory\AddActual\**" />
-    <Compile Remove="Features\Ordinatory\Deprecate\**" />
-    <Compile Remove="Features\Ordinatory\GetActual\**" />
-    <Compile Remove="Features\Ordinatory\GetHistory\**" />
-    <Compile Remove="Features\Person\**" />
-    <EmbeddedResource Remove="Features\Note\**" />
-    <EmbeddedResource Remove="Features\Ordinatory\AddActual\**" />
-    <EmbeddedResource Remove="Features\Ordinatory\Deprecate\**" />
-    <EmbeddedResource Remove="Features\Ordinatory\GetActual\**" />
-    <EmbeddedResource Remove="Features\Ordinatory\GetHistory\**" />
-    <EmbeddedResource Remove="Features\Person\**" />
-    <None Remove="Features\Note\**" />
-    <None Remove="Features\Ordinatory\AddActual\**" />
-    <None Remove="Features\Ordinatory\Deprecate\**" />
-    <None Remove="Features\Ordinatory\GetActual\**" />
-    <None Remove="Features\Ordinatory\GetHistory\**" />
-    <None Remove="Features\Person\**" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="FastEndpoints" Version="5.26.0" />
-	  <PackageReference Include="FastEndpoints.Swagger" Version="5.26.0" />
+	  <PackageReference Include="ErrorOr" Version="2.0.1" />
+	  <PackageReference Include="FluentValidation" Version="11.9.2" />
+	  <PackageReference Include="Mediator.Abstractions" Version="2.1.7" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Data\Database\" />
-	  <Folder Include="Features\Notes\Services\" />
-	  <Folder Include="Features\Ordinatory\Services\" />
-	  <Folder Include="Features\Persons\Services\" />
+		<Folder Include="Domain\" />
+		<Folder Include="Features\" />
 	</ItemGroup>
 
 </Project>

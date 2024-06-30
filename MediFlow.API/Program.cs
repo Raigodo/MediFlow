@@ -1,38 +1,35 @@
-using FastEndpoints;
-using FastEndpoints.Swagger;
 using Journal;
-using MediFlow.API.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication();
+builder.Services.AddMediator(options =>
+    options.ServiceLifetime = ServiceLifetime.Scoped);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthModule(builder.Configuration);
+builder.Services.AddJournalModule();
+
+builder.Services.AddJwtAuthentication();
 builder.Services.AddAuthorization();
 
-builder.Services.AddFastEndpoints(options =>
-{
-    options.DisableAutoDiscovery = true;
-    options.Assemblies = [
-        typeof(IJournalModulePointer).Assembly,
-    ];
-});
-builder.Services.SwaggerDocument();
-builder.Services.AddSwaggerWithAuthSupport();
-
-builder.Services.AddJournalModule();
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
-
-app.UseFastEndpoints()
-    .UseSwaggerGen();
-
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-
+app.UseAuthModule();
+app.UseJournalModule();
 
 app.Run();
 
